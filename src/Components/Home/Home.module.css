@@ -1,0 +1,106 @@
+@import url('https://fonts.googleapis.com/css2?family=Lobster&display=swap');
+
+:root {
+    --dark: #1B1A27;
+    --yellow: rgb(253, 216, 53);
+    --blue: rgb(98, 0, 234);
+    
+    --c1: rgb(3, 7, 18);
+    --c2: #F84F39;
+    
+    --left-color: var(--dark);
+    --right-color: var(--blue);
+  }
+  
+  body {  
+    background-color: var(--dark);
+    margin: 0px;
+  }
+  
+  .side {
+    display: grid;
+    height: 80vh;
+    overflow: hidden;
+    place-items: center;
+    position: absolute;
+    width: 100%;
+  }
+  
+  .side .title {
+    font-family: "Montserrat", sans-serif;
+    font-size: 7vw;
+    font-weight: 800;
+    margin: 0px 10vw;
+    width: 80vw;
+  }
+  
+  .side .fancy {
+    font-family: "Lobster", cursive;
+    font-size: 1.3em;
+    line-height: 0.6em;
+  }
+  
+  #leftSide {
+    background-color: var(--left-color);
+    width: 100%;
+    z-index: 2;
+  }
+  
+  #leftSide .title {  
+    color: white;  
+  }
+  
+  #leftSside .fancy {
+    color: var(--right-color);
+  }
+  
+  #rightSide {
+    background-color: var(--right-color);
+  }
+  
+  #rightSide .title {
+    color: var(--dark);
+  }
+  
+  #rightSide .fancy {
+    color: white;
+  }
+  
+.bottom{
+    color: white;
+    padding: 10px;
+    z-index: 999;
+    position: relative;
+    background-color: aliceblue;
+    bottom: 0;
+}
+
+.container {
+  height: 200px;
+  position: relative;
+  border: 3px solid green;
+}
+
+.center {
+  margin: 0;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  -ms-transform: translate(-50%, -50%);
+  transform: translate(-50%, -50%);
+}
+.button{
+  margin: 0;
+  position: absolute;
+  top: 85%;
+  left: 12%;
+  -ms-transform: translate(-50%, -50%);
+  transform: translate(-50%, -50%);
+  border: none;
+  outline: none;
+  padding: 10px 16px;
+  background-color:rgb(98, 0, 234);
+  color: #fff;
+  border-radius: 25px;
+  width: fit-content;
+}
