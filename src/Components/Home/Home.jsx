@@ -1,8 +1,13 @@
 import React, { useEffect, useRef } from 'react';
 import styles from './Home.module.css';
+import { useNavigate } from "react-router-dom"
 
 
 const Home = () => {
+    const navigate = useNavigate();
+    const handleNextButtonClick = () => {
+        navigate("/login");
+    };
     const leftRef = useRef(null);
     const buttonRef = useRef(null);
 
@@ -44,10 +49,7 @@ const Home = () => {
         };
     }, []);
 
-    const handleButtonClick = () => {
-        // Add functionality for the button click here
-        console.log('Button clicked!');
-    };
+
 
     return (
         <div>
@@ -64,7 +66,7 @@ const Home = () => {
                     </h2>
                 </div>
             </div>
-            <button ref={buttonRef} onClick={handleButtonClick} className={styles.button}>
+            <button ref={buttonRef} onClick={handleNextButtonClick} className={styles.button}>
                 Get Started
             </button>
         </div>
