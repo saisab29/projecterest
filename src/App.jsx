@@ -2,6 +2,7 @@
 import Home from "./Components/Home/Home";
 import React from "react";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom"
+import Auth from "./Components/Auth/Auth";
 
 
 
@@ -11,8 +12,8 @@ function App() {
       <Router>
         <Routes>
 
-          <Route path="/login" element={<h1>Login</h1>} />
-          <Route path="/signup" element={<h1>Signup</h1>} />
+          <Route path="/login" element={<Auth />} />
+          <Route path="/signup" element={<Auth signup />} />
           <Route path="/account" element={<h1>Login</h1>} />
           <Route path="/" element={<Home />} />
 
