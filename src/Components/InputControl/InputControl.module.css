@@ -6,16 +6,18 @@
 
 .container label{
     font-weight: 500;
-    color: #fff;
+    color: #000000;
     font-size: 0.9rem;
 
 }
 .container input{
+    width: 90%;
     border: 1px solid #eee;
-    border-radius: 5px;
+    border-radius: 25px;
     padding: 10px 15px;
     outline: none;
     transition: 200ms;
+    padding-right: 30px;
 
 }
 .container input:hover{
@@ -24,4 +26,30 @@
 }
 .container input:focus{
     border: 1px solid rgb(98, 0, 234);
+}
+
+.inputContainer{
+    position: relative;
+}
+.inputContainer:hover .icon svg , .inputContainer:focus-within .icon svg{
+    color: rgb(76, 6, 173);;
+
+}
+
+.inputContainer .icon{
+    position: absolute;
+    right: 4px;
+    top: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    transform: translateY(-50%);
+
+}
+
+.inputContainer .icon svg{
+    height: 15px;
+    width: 15px;
+    color: rgb(98, 0, 234);;
+
 }
