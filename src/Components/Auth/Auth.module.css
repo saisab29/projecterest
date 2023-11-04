@@ -32,6 +32,13 @@
     font-size: 0.9rem;
 
 }
+
+.smallLink a{
+    color: #fff;
+    font-weight: bold;
+    cursor: pointer;
+    font-size: 0.9rem;
+}
 .form .heading{
     font-weight: bold;
     font-size: 1.5rem;
@@ -53,4 +60,26 @@
     justify-content: center;
     align-items: center;
 
+}
+
+.form .error{
+    font-size: 0.875rem;
+    font-weight: bold;
+    color: red;
+    width: 100%;
+    text-align: center;
+}
+
+.from .bottom p{
+    width: 100%;
+    text-align: center;
+    font-size: 1rem;
+    font-weight: 500;
+}
+
+.bottom p a{
+    color: rgb(98, 0, 234);
+    font-weight: 600;
+    text-decoration: underline;
+    cursor: pointer;
 }
