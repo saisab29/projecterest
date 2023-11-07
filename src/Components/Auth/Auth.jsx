@@ -1,13 +1,54 @@
 import React from 'react'
+import { useState } from 'react'
 import styles from './Auth.module.css'
 import InputControl from '../InputControl/InputControl';
 import { Link } from 'react-router-dom'
+import { createUserWithEmailAndPassword } from 'firebase/auth';
+import { auth } from '../../firebase';
 
 function Auth(props) {
     const isSignup = props.signup ? true : false;
+
+
+    const [values, setValues] = useState({
+        name: "",
+        email: "",
+        password: ""
+    });
+    const [errorMsg, setErrorMsg] = useState("");
+
+    const handleLogin = () => {
+
+    }
+    const handleSignup = () => {
+        if (!values.name || !values.email || !values.password) {
+            setErrorMsg('Please fill out all the fields')
+            return;
+        }
+
+
+        createUserWithEmailAndPassword(auth, values.email, values.password).then((response) => {
+            console.log(response)
+        })
+            .catch((err) => {
+                console.log("Err->", err.message);
+            });
+
+    }
+
+    const handleSubmission = (event) => {
+        event.preventDefault();
+
+
+
+        if (isSignup) handleSignup();
+        else handleLogin();
+
+    };
+
     return (
         <div className={styles.container}>
-            <form className={styles.form}>
+            <form className={styles.form} onSubmit={handleSubmission}>
                 <Link to='/'><p className={styles.smallLink}>{"< Back to Home"}</p></Link>
                 <p className={styles.heading}>{isSignup ? "Signup" : "Login"}</p>
 
@@ -15,15 +56,15 @@ function Auth(props) {
                 {
                     isSignup &&
 
-                    (<InputControl label="Name" placeholder="Enter your Name" />)
+                    (<InputControl label="Name" placeholder="Enter your Name" onChange={(event) => setValues(prev => ({ ...prev, name: event.target.value }))} />)
                 }
-                <InputControl label="Email" placeholder="Enter your Email" />
-                <InputControl label="Password" placeholder="Enter your Password" isPassword />
+                <InputControl label="Email" placeholder="Enter your Email" onChange={(event) => setValues(prev => ({ ...prev, email: event.target.value }))} />
+                <InputControl label="Password" placeholder="Enter your Password" onChange={(event) => setValues(prev => ({ ...prev, password: event.target.value }))} isPassword />
 
-                <p className={styles.error}>Error message</p>
+                <p className={styles.error}></p>
 
 
-                <button>{isSignup ? "Signup" : "Login"}</button>
+                <button type='submit'>{isSignup ? "Signup" : "Login"}</button>
 
                 <div className={styles.bottom}>
                     {isSignup ?
