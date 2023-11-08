@@ -64,6 +64,9 @@
     align-items: center;
 
 }
+.form button:disabled{
+    background-color: gray !important;
+}
 
 .form .error{
     font-size: 0.875rem;

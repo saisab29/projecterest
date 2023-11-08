@@ -16,6 +16,7 @@ function Auth(props) {
         password: ""
     });
     const [errorMsg, setErrorMsg] = useState("");
+    const [submitButtonDisabled, setSubmitButtonDisabled] = useState(false);
 
     const handleLogin = () => {
 
@@ -26,12 +27,14 @@ function Auth(props) {
             return;
         }
 
-
+        setSubmitButtonDisabled(true);
         createUserWithEmailAndPassword(auth, values.email, values.password).then((response) => {
-            console.log(response)
+            console.log(response);
+            setSubmitButtonDisabled(false);
         })
             .catch((err) => {
-                console.log("Err->", err.message);
+                setSubmitButtonDisabled(false);
+                setErrorMsg(err.message)
             });
 
     }
@@ -64,7 +67,7 @@ function Auth(props) {
                 <p className={styles.error}></p>
 
 
-                <button type='submit'>{isSignup ? "Signup" : "Login"}</button>
+                <button type='submit' disabled={submitButtonDisabled}>{isSignup ? "Signup" : "Login"}</button>
 
                 <div className={styles.bottom}>
                     {isSignup ?
