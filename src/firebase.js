@@ -1,6 +1,7 @@
 // Import the functions you need from the SDKs you need
 import { initializeApp } from "firebase/app";
-import { getAuth } from 'firebase/auth'
+import { getAuth } from 'firebase/auth';
+import { doc, setDoc, getFirestore } from 'firebase/firestore'
 
 
 const firebaseConfig = {
@@ -18,4 +19,12 @@ const app = initializeApp(firebaseConfig);
 
 const auth = getAuth(app);
 
-export { app as default, auth };
+const db = getFirestore(app);
+
+const updateUserToDatabase = async (user, uid) => {
+    if (typeof user !== "object") return;
+    const docRef = doc(db, 'users', uid)
+    await setDoc(docRef, { ...user });
+
+}
+export { app as default, auth, db, updateUserToDatabase };

@@ -4,7 +4,7 @@ import styles from './Auth.module.css'
 import InputControl from '../InputControl/InputControl';
 import { Link } from 'react-router-dom'
 import { createUserWithEmailAndPassword } from 'firebase/auth';
-import { auth } from '../../firebase';
+import { auth, updateUserToDatabase } from '../../firebase';
 
 function Auth(props) {
     const isSignup = props.signup ? true : false;
@@ -28,8 +28,10 @@ function Auth(props) {
         }
 
         setSubmitButtonDisabled(true);
-        createUserWithEmailAndPassword(auth, values.email, values.password).then((response) => {
+        createUserWithEmailAndPassword(auth, values.email, values.password).then(async (response) => {
             console.log(response);
+            const userId = response.user.uid;
+            await updateUserToDatabase({ name: values.name, email: values.email }, userId)
             setSubmitButtonDisabled(false);
         })
             .catch((err) => {
