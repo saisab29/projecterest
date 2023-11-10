@@ -2,13 +2,13 @@ import React from 'react'
 import { useState } from 'react'
 import styles from './Auth.module.css'
 import InputControl from '../InputControl/InputControl';
-import { Link } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 import { createUserWithEmailAndPassword } from 'firebase/auth';
 import { auth, updateUserToDatabase } from '../../firebase';
 
 function Auth(props) {
     const isSignup = props.signup ? true : false;
-
+    const navigate = useNavigate();
 
     const [values, setValues] = useState({
         name: "",
@@ -33,6 +33,7 @@ function Auth(props) {
             const userId = response.user.uid;
             await updateUserToDatabase({ name: values.name, email: values.email }, userId)
             setSubmitButtonDisabled(false);
+            navigate('/');
         })
             .catch((err) => {
                 setSubmitButtonDisabled(false);

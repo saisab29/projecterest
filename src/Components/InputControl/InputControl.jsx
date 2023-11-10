@@ -4,7 +4,7 @@ import { Eye, EyeOff } from "react-feather"
 
 function InputControl({ label, isPassword, ...props }) {
 
-    const [isVisible, setIsVisible] = useState(true);
+    const [isVisible, setIsVisible] = useState(false);
 
 
     return (
