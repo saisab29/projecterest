@@ -3,7 +3,7 @@ import { useState } from 'react'
 import styles from './Auth.module.css'
 import InputControl from '../InputControl/InputControl';
 import { Link, useNavigate } from 'react-router-dom'
-import { createUserWithEmailAndPassword } from 'firebase/auth';
+import { createUserWithEmailAndPassword, signInWithEmailAndPassword } from 'firebase/auth';
 import { auth, updateUserToDatabase } from '../../firebase';
 
 function Auth(props) {
@@ -19,6 +19,22 @@ function Auth(props) {
     const [submitButtonDisabled, setSubmitButtonDisabled] = useState(false);
 
     const handleLogin = () => {
+        if (!values.email || !values.password) {
+            setErrorMsg('Please fill out all the fields')
+            return;
+        }
+        setSubmitButtonDisabled(true);
+        signInWithEmailAndPassword(auth, values.email, values.password).then(async () => {
+
+            navigate('/');
+            setSubmitButtonDisabled(false);
+
+        })
+            .catch((err) => {
+                setSubmitButtonDisabled(false);
+                setErrorMsg(err.message)
+            });
+
 
     }
     const handleSignup = () => {
