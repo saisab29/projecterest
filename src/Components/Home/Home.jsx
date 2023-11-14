@@ -3,10 +3,12 @@ import styles from './Home.module.css';
 import { useNavigate } from "react-router-dom"
 
 
-const Home = () => {
+const Home = (props) => {
     const navigate = useNavigate();
+    const isAuthenticated = props.auth ? true : false;
     const handleNextButtonClick = () => {
-        navigate("/login");
+        if (isAuthenticated) navigate("/acount");
+        else navigate("/login")
     };
     const leftRef = useRef(null);
     const buttonRef = useRef(null);
@@ -67,7 +69,7 @@ const Home = () => {
                 </div>
             </div>
             <button ref={buttonRef} onClick={handleNextButtonClick} className={styles.button}>
-                Get Started
+                {isAuthenticated ? "Your Projects" : "Get Started"}
             </button>
         </div>
     );
