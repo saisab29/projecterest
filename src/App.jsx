@@ -6,6 +6,7 @@ import { BrowserRouter as Router, Routes, Route, Navigate } from "react-router-d
 import Auth from "./Components/Auth/Auth";
 import { auth, getUserFromDatabase } from "./firebase";
 import "./App.css";
+import Account from "./Components/Account/Account";
 
 
 
@@ -50,7 +51,7 @@ function App() {
 
             )}
 
-            <Route path="/account" element={<h1>Login</h1>} />
+            <Route path="/account" element={<Account />} />
             <Route path="/" element={<Home auth={isAuthenticated} />} />
             <Route path="/*" element={<Navigate to="/" />} />
 
