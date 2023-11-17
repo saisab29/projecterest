@@ -1,0 +1,145 @@
+.container{
+    color: white;
+    display: flex;
+    flex-direction: column;
+    gap: 30px;
+}
+
+.header{
+    max-width: 100%;
+    background-color:rgb(98, 0, 234);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 30px;
+}
+
+.header .heading{
+    font-weight: bold;
+    font-size: 2.1rem;
+}
+
+.header .heading span{
+    color: rgb(253, 216, 53);
+    font-size: 2.7;
+}
+
+.header .logout{
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    cursor: pointer;
+}
+
+.header .logout svg{
+    height: 20px;
+    width: 20px;
+    color: black;
+}
+.header .logout{
+    color: black;
+    font-weight: 500;
+    font-size: 1rem;
+}
+
+.header .logout:hover, 
+.header .logout:hover svg{
+    color: rgb(253, 216, 53);;
+}
+
+.container .section{
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    padding: 20px 30px;
+}
+
+.section .title{
+    font-weight: bold;
+    font-size: 1.6rem;
+}
+
+.profile{ 
+    display: flex;
+    gap: 30px;
+    align-items: center;
+}
+.profile .left{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.profile .left .image{
+    position: relative;
+    height: 200px;
+    width: 200px;
+    border-radius: 50%;
+    overflow: hidden;
+    border: 1px solid #ccc ;
+}
+.profile .left .image img{
+    height: 100%;
+    width: 100%;
+    object-fit: contain;
+}
+.profile .left .image .camera{
+    position: absolute;
+    right: 20px;
+    top: 20px;
+    background-color: #fff;
+    border-radius: 50%;
+    padding: 8px;
+    z-index: 10;
+    height: fit-content;
+    width: fit-content;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 1px solid #eee;
+    cursor: pointer;
+}
+.profile .left .image .camera svg{
+    height: 22px;
+    width: 22px;
+    color: rgb(98, 0, 234);
+}
+.profile .right{
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    
+}
+.profile .right .row{
+    width: 100%;
+    display: flex;
+    gap: 30px;
+    align-items: center;
+    padding-top: 30px;
+}
+.profile .right .row >div{
+    flex: 1;
+}
+.saveButton {
+    border: none;
+    outline: none;
+    padding: 10px 16px;
+    background-color: rgb(98, 0, 234);
+    width: fit-content;
+    margin-left: auto;
+    margin-top: 50px;
+    margin-right: 20px;
+    text-align: center;
+    color: #fff;
+    border-radius: 25px;
+    font-size: 1.2rem;
+    cursor: pointer;
+    transition: 200ms;
+    display: flex;
+    gap: 5px;
+    justify-content: center;
+    align-items: center;
+
+}
+.saveButton button:disabled{
+    background-color: gray !important;
+}
