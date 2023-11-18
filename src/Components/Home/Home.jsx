@@ -7,7 +7,7 @@ const Home = (props) => {
     const navigate = useNavigate();
     const isAuthenticated = props.auth ? true : false;
     const handleNextButtonClick = () => {
-        if (isAuthenticated) navigate("/acount");
+        if (isAuthenticated) navigate("/account");
         else navigate("/login")
     };
     const leftRef = useRef(null);
