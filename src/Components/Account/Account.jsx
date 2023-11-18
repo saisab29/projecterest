@@ -3,17 +3,27 @@ import styles from './Account.module.css'
 import { Camera, LogOut } from 'react-feather'
 import InputControl from '../InputControl/InputControl'
 import { Navigate } from 'react-router-dom';
+import { signOut } from 'firebase/auth';
+import { auth } from '../../firebase';
 
 function Account(props) {
   const userDetails = props.userDetails;
   const isAuthenticated = props.auth;
+
+  const handleLogout = async () => {
+    await signOut(auth);
+  }
+
+
+
+
   return isAuthenticated ? (
     <div className={styles.container}>
       <div className={styles.header}>
         <p className={styles.heading}>
           Bonjour <span>{userDetails.name}!</span>
         </p>
-        <div className={styles.logout}>
+        <div className={styles.logout} onClick={handleLogout}>
           <LogOut /> Logout
         </div>
       </div>

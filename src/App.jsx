@@ -26,6 +26,7 @@ function App() {
     const listener = auth.onAuthStateChanged(user => {
       if (!user) {
         setIsDataLoaded(true);
+        setIsAuthenticated(false);
         return;
       }
 
