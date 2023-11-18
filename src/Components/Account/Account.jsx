@@ -2,13 +2,16 @@ import React from 'react'
 import styles from './Account.module.css'
 import { Camera, LogOut } from 'react-feather'
 import InputControl from '../InputControl/InputControl'
+import { Navigate } from 'react-router-dom';
 
-function Account() {
-  return (
+function Account(props) {
+  const userDetails = props.userDetails;
+  const isAuthenticated = props.auth;
+  return isAuthenticated ? (
     <div className={styles.container}>
       <div className={styles.header}>
         <p className={styles.heading}>
-          Bonjour<span>User</span>
+          Bonjour <span>{userDetails.name}!</span>
         </p>
         <div className={styles.logout}>
           <LogOut /> Logout
@@ -43,7 +46,7 @@ function Account() {
         </div>
       </div>
     </div >
-  )
+  ) : <Navigate to="/" />
 }
 
 export default Account
