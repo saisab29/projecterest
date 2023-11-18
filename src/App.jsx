@@ -51,7 +51,7 @@ function App() {
 
             )}
 
-            <Route path="/account" element={<Account />} />
+            <Route path="/account" element={<Account userDetails={userDetails} auth={isAuthenticated} />} />
             <Route path="/" element={<Home auth={isAuthenticated} />} />
             <Route path="/*" element={<Navigate to="/" />} />
 
