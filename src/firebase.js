@@ -2,7 +2,7 @@
 import { initializeApp } from "firebase/app";
 import { getAuth } from 'firebase/auth';
 import { doc, setDoc, getDoc, getFirestore } from 'firebase/firestore'
-
+import { getStorage } from 'firebase/storeage'
 
 const firebaseConfig = {
     apiKey: "AIzaSyCvJWlN3FUooqiZyMcIhP-N4Nwc5kjV3Gk",
@@ -21,6 +21,8 @@ const auth = getAuth(app);
 
 const db = getFirestore(app);
 
+const storage = getStorage(app);
+
 const updateUserToDatabase = async (user, uid) => {
     if (typeof user !== "object") return;
     const docRef = doc(db, 'users', uid)
@@ -36,4 +38,6 @@ const getUserFromDatabase = async (uid) => {
 
 
 }
+
+
 export { app as default, auth, db, updateUserToDatabase, getUserFromDatabase };
