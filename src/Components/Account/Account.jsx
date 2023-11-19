@@ -47,7 +47,7 @@ function Account(props) {
     <div className={styles.container}>
       <div className={styles.header}>
         <p className={styles.heading}>
-          Bonjour <span>{userDetails.name}!</span>
+          Bonjour, <span>{userDetails.name}</span>!
         </p>
         <div className={styles.logout} onClick={handleLogout}>
           <LogOut /> Logout
