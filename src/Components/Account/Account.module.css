@@ -68,6 +68,8 @@
 }
 .profile .left{
     display: flex;
+    flex-direction: column;
+    gap: 20px;
     align-items: center;
     justify-content: center;
 }
@@ -78,6 +80,12 @@
     border-radius: 50%;
     overflow: hidden;
     border: 1px solid #ccc ;
+}
+.profile .left .progress{
+    font-weight: bold;
+    font-size: 0.9rem;
+    text-align: center;
+    
 }
 .profile .left .image img{
     height: 100%;
