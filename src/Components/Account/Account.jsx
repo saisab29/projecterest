@@ -16,6 +16,13 @@ function Account(props) {
   const [profileImageUrl, setProfileImageUrl] = useState("https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png");
   const [profileImageUploadStarted, setProfileImageUploadStarted] = useState(false);
 
+
+  const [userprofileValues, setUserProfileValues] = useState({
+    name: " ",
+    designation: "",
+    github: "",
+    linkedin: ""
+  })
   const handleLogout = async () => {
     await signOut(auth);
   }
@@ -72,12 +79,12 @@ function Account(props) {
           </div>
           <div className={styles.right}>
             <div className={styles.row}>
-              <InputControl label="Name" placeholder="Enter your Name" />
-              <InputControl label="Title" placeholder="E.g Full stack developer" />
+              <InputControl label="Name" placeholder="Enter your Name" onChange={(event) => setUserProfileValues((prev) => ({ ...prev, name: event.target.value, }))} />
+              <InputControl label="Title" placeholder="E.g Full stack developer" onChange={(event) => setUserProfileValues((prev) => ({ ...prev, title: event.target.value, }))} />
             </div>
             <div className={styles.row}>
-              <InputControl label="Github" placeholder="Github URL" />
-              <InputControl label="Linkedin" placeholder="Linkedin URL" />
+              <InputControl label="Github" placeholder="Github URL" onChange={(event) => setUserProfileValues((prev) => ({ ...prev, github: event.target.value, }))} />
+              <InputControl label="Linkedin" placeholder="Linkedin URL" onChange={(event) => setUserProfileValues((prev) => ({ ...prev, linkedin: event.target.value, }))} />
             </div>
             <button className={styles.saveButton}>Save Info</button>
           </div>
