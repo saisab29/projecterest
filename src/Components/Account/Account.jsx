@@ -82,12 +82,12 @@ function Account(props) {
           </div>
           <div className={styles.right}>
             <div className={styles.row}>
-              <InputControl label="Name" placeholder="Enter your Name" onChange={(event) => setUserProfileValues((prev) => ({ ...prev, name: event.target.value, }))} />
-              <InputControl label="Title" placeholder="E.g Full stack developer" onChange={(event) => setUserProfileValues((prev) => ({ ...prev, title: event.target.value, }))} />
+              <InputControl label="Name" placeholder="Enter your Name" value={userprofileValues.name} onChange={(event) => setUserProfileValues((prev) => ({ ...prev, name: event.target.value, }))} />
+              <InputControl label="Title" placeholder="E.g Full stack developer" value={userprofileValues.designation} onChange={(event) => setUserProfileValues((prev) => ({ ...prev, title: event.target.value, }))} />
             </div>
             <div className={styles.row}>
-              <InputControl label="Github" placeholder="Github URL" onChange={(event) => setUserProfileValues((prev) => ({ ...prev, github: event.target.value, }))} />
-              <InputControl label="Linkedin" placeholder="Linkedin URL" onChange={(event) => setUserProfileValues((prev) => ({ ...prev, linkedin: event.target.value, }))} />
+              <InputControl label="Github" placeholder="Github URL" value={userprofileValues.github} onChange={(event) => setUserProfileValues((prev) => ({ ...prev, github: event.target.value, }))} />
+              <InputControl label="Linkedin" placeholder="Linkedin URL" value={userprofileValues.linkedin} onChange={(event) => setUserProfileValues((prev) => ({ ...prev, linkedin: event.target.value, }))} />
             </div>
             <div className={styles.footer}>
               <p className={styles.error}>{errorMessage}</p>
@@ -101,5 +101,4 @@ function Account(props) {
     </div >
   ) : <Navigate to="/" />
 }
-
 export default Account
