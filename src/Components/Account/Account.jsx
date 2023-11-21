@@ -18,11 +18,14 @@ function Account(props) {
 
 
   const [userprofileValues, setUserProfileValues] = useState({
-    name: " ",
-    designation: "",
-    github: "",
-    linkedin: ""
+    name: userDetails.name,
+    designation: userDetails.designation || " ",
+    github: userDetails.github || " ",
+    linkedin: userDetails.linkeding || " "
   })
+  const [showSaveDetailsButton, setSaveDetailsButton] = useState(false);
+  const [errorMessage, setErrorMessage] = useState(" ");
+
   const handleLogout = async () => {
     await signOut(auth);
   }
@@ -86,7 +89,12 @@ function Account(props) {
               <InputControl label="Github" placeholder="Github URL" onChange={(event) => setUserProfileValues((prev) => ({ ...prev, github: event.target.value, }))} />
               <InputControl label="Linkedin" placeholder="Linkedin URL" onChange={(event) => setUserProfileValues((prev) => ({ ...prev, linkedin: event.target.value, }))} />
             </div>
-            <button className={styles.saveButton}>Save Info</button>
+            <div className={styles.footer}>
+              <p className={styles.error}>{errorMessage}</p>
+              {showSaveDetailsButton &&
+                <button className={styles.saveButton}>Save Info</button>
+              }
+            </div>
           </div>
         </div>
       </div>
