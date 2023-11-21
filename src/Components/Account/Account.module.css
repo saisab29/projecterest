@@ -153,3 +153,16 @@
 .saveButton button:disabled{
     background-color: gray !important;
 }
+.footer{
+    display: flex;
+    gap: 30px;
+}
+
+.footer .error{
+    flex: 1;
+    font-size: 0.875rem;
+    font-weight: bold;
+    color: red;
+    width: 100%;
+    text-align: center;
+}
