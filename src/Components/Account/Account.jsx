@@ -1,4 +1,4 @@
-import { React, useRef, useState } from 'react'
+import { React, useRef, useState, useEffect } from 'react'
 import styles from './Account.module.css'
 import { Camera, LogOut } from 'react-feather'
 import InputControl from '../InputControl/InputControl'
@@ -18,12 +18,12 @@ function Account(props) {
 
 
   const [userprofileValues, setUserProfileValues] = useState({
-    name: userDetails.name,
+    name: userDetails.name || " ",
     designation: userDetails.designation || " ",
     github: userDetails.github || " ",
     linkedin: userDetails.linkeding || " "
   })
-  const [showSaveDetailsButton, setSaveDetailsButton] = useState(false);
+  const [showSaveDetailsButton, setShowSaveDetailsButton] = useState(false);
   const [errorMessage, setErrorMessage] = useState(" ");
 
   const handleLogout = async () => {
@@ -51,6 +51,15 @@ function Account(props) {
         setProfileImageUploadStarted(false);
       }
     )
+  }
+  const handleInputChange = (event, property) => {
+    setShowSaveDetailsButton(true);
+
+    setUserProfileValues((prev) => ({
+      prev,
+      [property]: event.target.value
+
+    }))
   }
 
   return isAuthenticated ? (
@@ -82,12 +91,12 @@ function Account(props) {
           </div>
           <div className={styles.right}>
             <div className={styles.row}>
-              <InputControl label="Name" placeholder="Enter your Name" value={userprofileValues.name} onChange={(event) => setUserProfileValues((prev) => ({ ...prev, name: event.target.value, }))} />
-              <InputControl label="Title" placeholder="E.g Full stack developer" value={userprofileValues.designation} onChange={(event) => setUserProfileValues((prev) => ({ ...prev, title: event.target.value, }))} />
+              <InputControl label="Name" placeholder="Enter your Name" value={userprofileValues.name} onChange={(event) => handleInputChange(event, "name")} />
+              <InputControl label="Title" placeholder="E.g Full stack developer" value={userprofileValues.designation} onChange={(event) => handleInputChange(event, "designation")} />
             </div>
             <div className={styles.row}>
-              <InputControl label="Github" placeholder="Github URL" value={userprofileValues.github} onChange={(event) => setUserProfileValues((prev) => ({ ...prev, github: event.target.value, }))} />
-              <InputControl label="Linkedin" placeholder="Linkedin URL" value={userprofileValues.linkedin} onChange={(event) => setUserProfileValues((prev) => ({ ...prev, linkedin: event.target.value, }))} />
+              <InputControl label="Github" placeholder="Github URL" value={userprofileValues.github} onChange={(event) => handleInputChange(event, "github")} />
+              <InputControl label="Linkedin" placeholder="Linkedin URL" value={userprofileValues.linkedin} onChange={(event) => handleInputChange(event, "linkedin")} />
             </div>
             <div className={styles.footer}>
               <p className={styles.error}>{errorMessage}</p>
