@@ -56,19 +56,21 @@ function Account(props) {
     setShowSaveDetailsButton(true);
 
     setUserprofileValues((prev) => ({
-      prev,
+      ...prev,
       [property]: event.target.value
 
     }))
   }
   const saveDetailsToDatabase = async () => {
     if (!userprofileValues.name) {
-      setErrorMessage("Name required")
+      setErrorMessage("Name required");
       return;
     }
-    await updateUserToDatabase({ ...userprofileValues }, userDetails.uid)
+
+    await updateUserToDatabase({ ...userprofileValues }, userDetails.uid);
     setShowSaveDetailsButton(false);
-  }
+  };
+
 
   return isAuthenticated ? (
     <div className={styles.container}>
