@@ -4,7 +4,7 @@ import { Camera, LogOut } from 'react-feather'
 import InputControl from '../InputControl/InputControl'
 import { Navigate } from 'react-router-dom';
 import { signOut } from 'firebase/auth';
-import { auth, uploadImage } from '../../firebase';
+import { auth, updateUserToDatabase, uploadImage } from '../../firebase';
 
 function Account(props) {
   const userDetails = props.userDetails;
@@ -17,11 +17,11 @@ function Account(props) {
   const [profileImageUploadStarted, setProfileImageUploadStarted] = useState(false);
 
 
-  const [userprofileValues, setUserProfileValues] = useState({
-    name: userDetails.name || " ",
-    designation: userDetails.designation || " ",
-    github: userDetails.github || " ",
-    linkedin: userDetails.linkeding || " "
+  const [userprofileValues, setUserprofileValues] = useState({
+    name: userDetails.name || "",
+    designation: userDetails.designation || "",
+    github: userDetails.github || "",
+    linkedin: userDetails.linkeding || ""
   })
   const [showSaveDetailsButton, setShowSaveDetailsButton] = useState(false);
   const [errorMessage, setErrorMessage] = useState(" ");
@@ -55,11 +55,19 @@ function Account(props) {
   const handleInputChange = (event, property) => {
     setShowSaveDetailsButton(true);
 
-    setUserProfileValues((prev) => ({
+    setUserprofileValues((prev) => ({
       prev,
       [property]: event.target.value
 
     }))
+  }
+  const saveDetailsToDatabase = async () => {
+    if (!userprofileValues.name) {
+      setErrorMessage("Name required")
+      return;
+    }
+    await updateUserToDatabase({ ...userprofileValues }, userDetails.uid)
+    setShowSaveDetailsButton(false);
   }
 
   return isAuthenticated ? (
@@ -101,7 +109,7 @@ function Account(props) {
             <div className={styles.footer}>
               <p className={styles.error}>{errorMessage}</p>
               {showSaveDetailsButton &&
-                <button className={styles.saveButton}>Save Info</button>
+                <button className={styles.saveButton} onClick={saveDetailsToDatabase}>Save Info</button>
               }
             </div>
           </div>
