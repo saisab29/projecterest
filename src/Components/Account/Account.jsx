@@ -44,6 +44,7 @@ function Account(props) {
       (progress) => { setProgress(progress) },
       (url) => {
         setProfileImageUrl(url);
+        updateProfileImageToDatabase(url);
         setProfileImageUploadStarted(false);
         setProgress(0)
       },
@@ -52,6 +53,11 @@ function Account(props) {
         setProfileImageUploadStarted(false);
       }
     )
+  }
+
+  const updateProfileImageToDatabase = async (url) => {
+    await updateUserToDatabase({ ...userprofileValues, profileImageUrl: url },
+      userDetails.uid)
   }
   const handleInputChange = (event, property) => {
     setShowSaveDetailsButton(true);
