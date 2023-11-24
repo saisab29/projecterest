@@ -24,6 +24,7 @@ function Account(props) {
     linkedin: userDetails.linkeding || ""
   })
   const [showSaveDetailsButton, setShowSaveDetailsButton] = useState(false);
+  const [saveButtonDisabled, setSaveButtonDisabled] = useState(false);
   const [errorMessage, setErrorMessage] = useState(" ");
 
   const handleLogout = async () => {
@@ -66,8 +67,9 @@ function Account(props) {
       setErrorMessage("Name required");
       return;
     }
-
+    setSaveButtonDisabled(true);
     await updateUserToDatabase({ ...userprofileValues }, userDetails.uid);
+    setSaveButtonDisabled(false);
     setShowSaveDetailsButton(false);
   };
 
@@ -111,7 +113,7 @@ function Account(props) {
             <div className={styles.footer}>
               <p className={styles.error}>{errorMessage}</p>
               {showSaveDetailsButton &&
-                <button className={styles.saveButton} onClick={saveDetailsToDatabase}>Save Info</button>
+                <button className={styles.saveButton} disabled={saveButtonDisabled} onClick={saveDetailsToDatabase}>Save Info</button>
               }
             </div>
           </div>
