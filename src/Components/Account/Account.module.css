@@ -166,3 +166,70 @@
     width: 100%;
     text-align: center;
 }
+
+.button
+    {
+        border: none;
+        outline: none;
+        padding: 10px 16px;
+        background-color: rgb(98, 0, 234);
+        width: fit-content;
+        margin-left: auto;
+        margin-top: auto;
+        margin-right: 20px;
+        text-align: center;
+        color: #fff;
+        border-radius: 25px;
+        font-size: 1.2rem;
+        cursor: pointer;
+        transition: 200ms;
+        display: flex;
+        gap: 5px;
+        justify-content: center;
+        align-items: center;
+    
+    }
+    .button:disabled{
+        background-color: gray !important;
+    }
+    .projectsHeader{
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+    }
+
+    .projects{
+       display: flex;
+       flex-direction: column;
+       gap: 10px; 
+    }
+
+    .projects .project{
+        max-width: 100%;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        box-shadow: 1px 2px 5px rgba(0,0.0,0.1);
+        padding: 10px;
+    }
+
+    .project .title{
+        font-size: 1.1rem;
+        font-weight: 500;
+        letter-spacing: 0.5px;
+    }
+
+    .project .link{
+        display: flex;
+        gap: 18px;
+        align-items: center;
+    }
+    .project .link svg{
+        height: 20px;
+        width: 20px;
+        color: rgb(98, 0, 234);
+        cursor: pointer;
+    }
+    .project .link svg:hover{
+        color: white
+    }

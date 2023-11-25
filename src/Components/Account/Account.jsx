@@ -1,6 +1,6 @@
 import { React, useRef, useState, useEffect } from 'react'
 import styles from './Account.module.css'
-import { Camera, LogOut } from 'react-feather'
+import { Camera, Edit2, GitHub, Linkedin, LogOut, Paperclip, Trash } from 'react-feather'
 import InputControl from '../InputControl/InputControl'
 import { Navigate } from 'react-router-dom';
 import { signOut } from 'firebase/auth';
@@ -123,6 +123,40 @@ function Account(props) {
               }
             </div>
           </div>
+        </div>
+      </div>
+
+      <div className={styles.hr}>
+        <hr />
+      </div>
+      <div className={styles.projectsHeader}>
+        <div className={styles.section}>Your Projects</div>
+        <button className={styles.button}>Add Projects</button>
+      </div>
+
+      <div className={styles.projects}>
+
+        <div className={styles.project}>
+          <p className={styles.title}>News Piper</p>
+
+          <div className={styles.link}>
+            <Edit2 />
+            <Trash />
+            <GitHub />
+            <Paperclip />
+          </div>
+
+        </div>
+        <div className={styles.project}>
+          <p className={styles.title}>Weather App</p>
+
+          <div className={styles.link}>
+            <Edit2 />
+            <Trash />
+            <GitHub />
+            <Paperclip />
+          </div>
+
         </div>
       </div>
     </div >
