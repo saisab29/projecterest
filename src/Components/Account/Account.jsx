@@ -5,6 +5,7 @@ import InputControl from '../InputControl/InputControl'
 import { Navigate } from 'react-router-dom';
 import { signOut } from 'firebase/auth';
 import { auth, updateUserToDatabase, uploadImage } from '../../firebase';
+import Modal from '../Modal/Modal';
 
 function Account(props) {
   const userDetails = props.userDetails;
@@ -82,6 +83,8 @@ function Account(props) {
 
   return isAuthenticated ? (
     <div className={styles.container}>
+
+      <Modal onClose={() => console.log('closing modal')}><h1>Hello</h1></Modal>
       <div className={styles.header}>
         <p className={styles.heading}>
           Bonjour, <span>{userprofileValues.name}</span>!
