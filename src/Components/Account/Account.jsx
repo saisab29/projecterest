@@ -5,7 +5,7 @@ import InputControl from '../InputControl/InputControl'
 import { Navigate } from 'react-router-dom';
 import { signOut } from 'firebase/auth';
 import { auth, updateUserToDatabase, uploadImage } from '../../firebase';
-import Modal from '../Modal/Modal';
+import ProjectForm from './ProjectForm/ProjectForm';
 
 function Account(props) {
   const userDetails = props.userDetails;
@@ -27,6 +27,7 @@ function Account(props) {
   const [showSaveDetailsButton, setShowSaveDetailsButton] = useState(false);
   const [saveButtonDisabled, setSaveButtonDisabled] = useState(false);
   const [errorMessage, setErrorMessage] = useState(" ");
+  const [showProjectform, setShowProjectform] = useState(false)
 
   const handleLogout = async () => {
     await signOut(auth);
@@ -83,8 +84,12 @@ function Account(props) {
 
   return isAuthenticated ? (
     <div className={styles.container}>
+      {
+        showProjectform &&
+        <ProjectForm onClose={() => setShowProjectform(false)} />
+      }
 
-      <Modal onClose={() => console.log('closing modal')}><h1>Hello</h1></Modal>
+
       <div className={styles.header}>
         <p className={styles.heading}>
           Bonjour, <span>{userprofileValues.name}</span>!
@@ -134,7 +139,7 @@ function Account(props) {
       </div>
       <div className={styles.projectsHeader}>
         <div className={styles.section}>Your Projects</div>
-        <button className={styles.button}>Add Projects</button>
+        <button className={styles.button} onClick={() => setShowProjectform(true)}>Add Projects</button>
       </div>
 
       <div className={styles.projects}>
