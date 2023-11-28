@@ -1,0 +1,107 @@
+.container{
+    min-width: 650px;
+    padding: 30px;
+    display: flex;
+    flex-direction: column;
+    gap: 30px;
+    border-radius: 100px;
+}
+.inner{
+    display: flex;
+    gap: 30px;
+    
+}
+.left{
+    flex: 1;
+}
+.right{
+    flex: 1.5;
+}
+.left, .right{
+    display: flex;
+    flex-direction: column;
+    gap: 30px;
+}
+.left .image{
+    display: flex;
+    flex-direction: column;
+    gap: 30px;
+}
+.left .image img{
+    height: 130px;
+    width: 240px;
+    object-fit: cover;
+}
+.left .image p{
+    font-weight: 500;
+    font-size: 0.875rem;
+    letter-spacing: 1px;
+}
+
+.left .image p span{
+    font-weight: bold;
+    font-size: 0.875rem;
+    letter-spacing: 1px;
+
+}
+.right .description, .description .inputs{
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+
+}
+.right .description .top{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+.description .title{
+    font-weight: 500;
+    font-size: 0.9rem;
+}
+.description .link{
+    color: rgb(98, 0, 234);
+    font-weight: bold;
+    font-size: 0.876rem;
+    cursor: pointer;
+}
+.footer{
+    display: flex;
+    gap: 20px;
+    justify-content: flex-end;
+    align-items: center;
+}
+.footer .cancel{
+    font-size: 1rem;
+    font-size: 500;
+    color: gray;
+    transition: 200ms;
+}
+.footer .cancel:hover{
+    color: rgb(81, 81, 81);
+}
+.button
+    {
+        border: none;
+        outline: none;
+        padding: 10px 16px;
+        background-color: rgb(98, 0, 234);
+        width: fit-content;
+        margin-left: auto;
+        margin-top: auto;
+        margin-right: 20px;
+        text-align: center;
+        color: #fff;
+        border-radius: 25px;
+        font-size: 1.2rem;
+        cursor: pointer;
+        transition: 200ms;
+        display: flex;
+        gap: 5px;
+        justify-content: center;
+        align-items: center;
+    
+    }
+    .button:disabled{
+        background-color: gray !important;
+    }
