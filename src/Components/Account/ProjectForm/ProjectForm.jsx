@@ -40,7 +40,7 @@ function ProjectForm(props) {
                     </div>
                 </div>
                 <div className={styles.footer}>
-                    <p className={styles.cancel}>Cancel</p>
+                    <p className={styles.cancel} onClick={() => (props.onClose ? props.onClose() : "")}>Cancel</p>
                     <button className={styles.button}>Submit</button>
                 </div>
             </div>
