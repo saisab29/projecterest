@@ -1,6 +1,6 @@
 import React, { useEffect, useRef } from 'react';
 import styles from './Home.module.css';
-import { useNavigate } from "react-router-dom"
+import { useNavigate, useLocation } from "react-router-dom"
 
 
 const Home = (props) => {
@@ -12,6 +12,12 @@ const Home = (props) => {
     };
     const leftRef = useRef(null);
     const buttonRef = useRef(null);
+
+    const location = useLocation();
+    console.log(location)
+
+
+
 
     useEffect(() => {
         const handleMove = e => {
@@ -49,7 +55,8 @@ const Home = (props) => {
                 }
             });
         };
-    }, []);
+    }, [location]);
+
 
 
 
