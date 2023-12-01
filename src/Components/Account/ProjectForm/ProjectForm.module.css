@@ -65,6 +65,18 @@
     font-size: 0.876rem;
     cursor: pointer;
 }
+.description .inputs .input{
+    display: flex;
+    align-items: center;
+    gap: 20px;
+}
+.description .inputs .input >div{
+    flex: 1;
+}
+.description .inputs .input svg{
+    height: 20px;
+    width: 20px;
+}
 .footer{
     display: flex;
     gap: 20px;

@@ -2,6 +2,7 @@ import { React, useState } from 'react'
 import Modal from '../../Modal/Modal'
 import styles from './ProjectForm.module.css'
 import InputControl from '../../InputControl/InputControl'
+import { Delete } from 'react-feather';
 
 
 function ProjectForm(props) {
@@ -23,7 +24,14 @@ function ProjectForm(props) {
         setValues(prev => ({ ...prev, points: tempPoints }))
     }
     const handleAddPoint = () => {
+        if (values.points.length > 4) return;
         setValues(prev => ({ ...prev, points: [...values.points, ""] }))
+    }
+
+    const handlePointDelete = (index) => {
+        const tempPoints = [...values.points];
+        tempPoints.splice(index, 1);
+        setValues((prev) => ({ ...prev, points: tempPoints }))
     }
 
 
@@ -53,13 +61,18 @@ function ProjectForm(props) {
                                 <p className={styles.link} onClick={handleAddPoint}> + Add</p>
                             </div>
                             <div className={styles.inputs}>
+
                                 {values.points.map((item, index) => (
-                                    <InputControl
-                                        key={index}
-                                        value={item}
-                                        onChange={(event) => handlePointUpdate(event.target.value, index)
-                                        }
-                                    />))}
+                                    <div className={styles.input}>
+                                        <InputControl
+                                            key={index}
+                                            value={item}
+                                            onChange={(event) => handlePointUpdate(event.target.value, index)
+                                            }
+                                        />
+                                        {index > 1 && <Delete onClick={() => { handlePointDelete(index) }} />}
+                                    </div>))}
+
                             </div>
 
                         </div>
