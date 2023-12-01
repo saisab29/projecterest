@@ -22,6 +22,9 @@ function ProjectForm(props) {
         tempPoints[index] = value;
         setValues(prev => ({ ...prev, points: tempPoints }))
     }
+    const handleAddPoint = () => {
+        setValues(prev => ({ ...prev, points: [...values.points, ""] }))
+    }
 
 
     return (
@@ -47,7 +50,7 @@ function ProjectForm(props) {
                             <div className={styles.top}>
 
                                 <p className={styles.title}>Project Description</p>
-                                <p className={styles.link}> + Add</p>
+                                <p className={styles.link} onClick={handleAddPoint}> + Add</p>
                             </div>
                             <div className={styles.inputs}>
                                 {values.points.map((item, index) => (
