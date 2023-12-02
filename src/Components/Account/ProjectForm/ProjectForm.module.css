@@ -31,6 +31,7 @@
     height: 130px;
     width: 240px;
     object-fit: cover;
+    cursor: pointer;
 }
 .left .image p{
     font-weight: 500;
@@ -116,4 +117,9 @@
     }
     .button:disabled{
         background-color: gray !important;
+    }
+    .error{
+        font-size: 0.875 rem;
+        font-weight: bold;
+        color: red;
     }

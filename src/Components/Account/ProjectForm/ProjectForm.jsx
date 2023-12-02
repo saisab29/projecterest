@@ -1,11 +1,13 @@
-import { React, useState } from 'react'
+import { React, useState, useRef } from 'react'
 import Modal from '../../Modal/Modal'
 import styles from './ProjectForm.module.css'
 import InputControl from '../../InputControl/InputControl'
 import { Delete } from 'react-feather';
+import { uploadImage } from '../../../firebase';
 
 
 function ProjectForm(props) {
+    const fileInputRef = useRef();
 
 
     const [values, setValues] = useState({
@@ -17,6 +19,9 @@ function ProjectForm(props) {
         points: ["", ""],
 
     });
+    const [errorMessage, setErrorMessage] = useState("");
+    const [imageUploadStarted, setImageUploadStarted] = useState(false);
+    const [imageUploadProgress, setImageUploadProgress] = useState(0);
 
     const handlePointUpdate = (value, index) => {
         const tempPoints = [...values.points]
@@ -35,24 +40,43 @@ function ProjectForm(props) {
     }
 
 
+    const handleFileInputChange = (event) => {
+        const file = event.target.files[0];
+        if (!file) return;
+        setImageUploadStarted(true);
+        uploadImage(file, (progress) => { setImageUploadProgress(progress) }, (url) => {
+            setImageUploadStarted(false);
+            setImageUploadProgress(0);
+            setValues(prev => ({ ...prev, thumbnail: url }))
+        },
+            (error) => {
+                setImageUploadStarted(false);
+                setErrorMessage(error)
+            })
+        console.log(file);
+
+    }
+
     return (
         <Modal onClose={() => (props.onClose ? props.onClose() : "")}>
             <div className={styles.container}>
+                <input ref={fileInputRef} type='file' style={{ display: 'none' }} onChange={handleFileInputChange}></input>
                 <div className={styles.inner}>
 
                     <div className={styles.left}>
                         <div className={styles.image}>
-                            <img src={values.thumbnail} alt='Project Cover' />
-                            <p>
-                                <span>30%</span> uploaded
+                            <img src={values.thumbnail} alt='Project Cover' onClick={() => fileInputRef.current.click()} />
+                            {imageUploadStarted && <p>
+                                <span>{imageUploadProgress.toFixed(2)}</span> uploaded
                             </p>
+                            }
                         </div>
-                        <InputControl label='Github' value={values.github} onChange={(event) => setValues((prev) => ({ prev, github: event.currentTarget.value, }))} />
-                        <InputControl label='Live Project' onChange={(event) => setValues((prev) => ({ prev, link: event.currentTarget.value, }))} />
+                        <InputControl label='Github' placeholder='Github Repository' value={values.github} onChange={(event) => setValues((prev) => ({ prev, github: event.currentTarget.value, }))} />
+                        <InputControl label='Live Project' placeholder='Deployed Project LInk' onChange={(event) => setValues((prev) => ({ prev, link: event.currentTarget.value, }))} />
                     </div>
                     <div className={styles.right}>
-                        <InputControl label='Project Name' onChange={(event) => setValues((prev) => ({ prev, title: event.currentTarget.value, }))} />
-                        <InputControl label='Project Overview' />
+                        <InputControl label='Project Name' placeholder='Name of the Project' onChange={(event) => setValues((prev) => ({ prev, title: event.currentTarget.value, }))} />
+                        <InputControl label='Project Overview' placeholder='Summarize your Project' />
 
                         <div className={styles.description}>
                             <div className={styles.top}>
@@ -64,7 +88,7 @@ function ProjectForm(props) {
 
                                 {values.points.map((item, index) => (
                                     <div className={styles.input}>
-                                        <InputControl
+                                        <InputControl placeholder='Project Description'
                                             key={index}
                                             value={item}
                                             onChange={(event) => handlePointUpdate(event.target.value, index)
@@ -79,6 +103,7 @@ function ProjectForm(props) {
 
                     </div>
                 </div>
+                <p className={styles.error}>{errorMessage}</p>
                 <div className={styles.footer}>
                     <p className={styles.cancel} onClick={() => (props.onClose ? props.onClose() : "")}>Cancel</p>
                     <button className={styles.button}>Submit</button>
