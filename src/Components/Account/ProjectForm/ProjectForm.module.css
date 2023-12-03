@@ -119,6 +119,8 @@
         background-color: gray !important;
     }
     .error{
+        text-align: center;
+        width: 100%;
         font-size: 0.875 rem;
         font-weight: bold;
         color: red;

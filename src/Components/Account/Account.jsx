@@ -86,7 +86,7 @@ function Account(props) {
     <div className={styles.container}>
       {
         showProjectform &&
-        <ProjectForm onClose={() => setShowProjectform(false)} />
+        <ProjectForm onClose={() => setShowProjectform(false)} uid={userDetails.uid} />
       }
 
 
