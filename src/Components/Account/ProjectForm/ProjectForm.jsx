@@ -57,6 +57,37 @@ function ProjectForm(props) {
 
     }
 
+    const validateForm = () => {
+        const actualPoints = values.points.filter((item) => item.trim());
+        const isValid = true;
+        if (!values.thumbnail) {
+            setErrorMessage("Project Cover Image is required");
+            isValid = false;
+
+        }
+        else if (!values.github) {
+            isValid = false;
+            setErrorMessage("Project Repository is required")
+        }
+        else if (!values.overview) {
+            isValid = false;
+            setErrorMessage("List the techstack used");
+        }
+        else if (!actualPoints.length) {
+            isValid = false;
+            setErrorMessage("Project Description is required");
+        }
+        else if (!actualPoints.length < 2) {
+            isValid = false;
+            setErrorMessage("Minimum 2 description points are required");
+        }
+
+        return isValid;
+
+    }
+
+
+
     return (
         <Modal onClose={() => (props.onClose ? props.onClose() : "")}>
             <div className={styles.container}>
@@ -106,7 +137,7 @@ function ProjectForm(props) {
                 <p className={styles.error}>{errorMessage}</p>
                 <div className={styles.footer}>
                     <p className={styles.cancel} onClick={() => (props.onClose ? props.onClose() : "")}>Cancel</p>
-                    <button className={styles.button}>Submit</button>
+                    <button className={styles.button} onClick={handleSubmission}>Submit</button>
                 </div>
             </div>
         </Modal>
