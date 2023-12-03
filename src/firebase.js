@@ -1,7 +1,7 @@
 // Import the functions you need from the SDKs you need
 import { initializeApp } from "firebase/app";
 import { getAuth } from 'firebase/auth';
-import { doc, setDoc, getDoc, getFirestore } from 'firebase/firestore'
+import { doc, setDoc, getDoc, getFirestore, addDoc, collection } from 'firebase/firestore'
 import { getStorage, ref, uploadBytesResumable, getDownloadURL } from 'firebase/storage'
 
 const firebaseConfig = {
@@ -75,6 +75,12 @@ const uploadImage = (file, progressCallback, urlCallback, errorCallback) => {
 
 
 }
+const addProjectInDatabase = async (project) => {
+    if (typeof project !== "object") return;
+    const collectionRef = collection(db, 'projects')
+    await addDoc(collectionRef, { ...project });
+
+}
 
 
-export { app as default, auth, db, updateUserToDatabase, getUserFromDatabase, uploadImage };
+export { app as default, auth, db, updateUserToDatabase, getUserFromDatabase, uploadImage, addProjectInDatabase };
