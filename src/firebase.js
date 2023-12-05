@@ -82,5 +82,12 @@ const addProjectInDatabase = async (project) => {
 
 }
 
+const updateProjectInDatabase = async (project, pid) => {
+    if (typeof project !== 'object') return;
 
-export { app as default, auth, db, updateUserToDatabase, getUserFromDatabase, uploadImage, addProjectInDatabase };
+    const docRef = doc(db, 'projects', pid);
+    await setDoc(docRef, { ...project });
+}
+
+
+export { app as default, auth, db, updateUserToDatabase, getUserFromDatabase, uploadImage, addProjectInDatabase, updateProjectInDatabase };
