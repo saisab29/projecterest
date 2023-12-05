@@ -1,7 +1,7 @@
 // Import the functions you need from the SDKs you need
 import { initializeApp } from "firebase/app";
 import { getAuth } from 'firebase/auth';
-import { doc, setDoc, getDoc, getFirestore, addDoc, collection } from 'firebase/firestore'
+import { doc, setDoc, getDoc, getFirestore, addDoc, collection, query, where } from 'firebase/firestore'
 import { getStorage, ref, uploadBytesResumable, getDownloadURL } from 'firebase/storage'
 
 const firebaseConfig = {
@@ -89,5 +89,19 @@ const updateProjectInDatabase = async (project, pid) => {
     await setDoc(docRef, { ...project });
 }
 
+const getAllProjects = async () => {
+    await getDoc(collection(db, 'projects'));
 
-export { app as default, auth, db, updateUserToDatabase, getUserFromDatabase, uploadImage, addProjectInDatabase, updateProjectInDatabase };
+}
+
+const getAllProjectsForUser = async (uid) => {
+    if (!uid) return;
+    const collectionRef = collection(db, 'projects');
+    const condition = where('refUser', '==', uid)
+    query(collectionRef, condition);
+
+    await getDocs(query);
+}
+
+
+export { app as default, auth, db, updateUserToDatabase, getUserFromDatabase, uploadImage, addProjectInDatabase, updateProjectInDatabase, getAllProjects, getAllProjectsForUser };
