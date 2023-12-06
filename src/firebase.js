@@ -1,7 +1,7 @@
 // Import the functions you need from the SDKs you need
 import { initializeApp } from "firebase/app";
 import { getAuth } from 'firebase/auth';
-import { doc, setDoc, getDoc, getFirestore, addDoc, collection, query, where } from 'firebase/firestore'
+import { doc, setDoc, getDoc, getFirestore, addDoc, collection, query, where, getDocs } from 'firebase/firestore'
 import { getStorage, ref, uploadBytesResumable, getDownloadURL } from 'firebase/storage'
 
 const firebaseConfig = {
@@ -98,9 +98,9 @@ const getAllProjectsForUser = async (uid) => {
     if (!uid) return;
     const collectionRef = collection(db, 'projects');
     const condition = where('refUser', '==', uid)
-    query(collectionRef, condition);
+    const dbQuery = query(collectionRef, condition);
 
-    await getDocs(query);
+    return await getDocs(dbQuery);
 }
 
 

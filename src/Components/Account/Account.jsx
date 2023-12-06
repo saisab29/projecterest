@@ -4,8 +4,9 @@ import { Camera, Edit2, GitHub, Linkedin, LogOut, Paperclip, Trash } from 'react
 import InputControl from '../InputControl/InputControl'
 import { Navigate } from 'react-router-dom';
 import { signOut } from 'firebase/auth';
-import { auth, updateUserToDatabase, uploadImage } from '../../firebase';
+import { auth, getAllProjectsForUser, updateUserToDatabase, uploadImage } from '../../firebase';
 import ProjectForm from './ProjectForm/ProjectForm';
+import Loader from '../Loader/Loader';
 
 function Account(props) {
   const userDetails = props.userDetails;
@@ -14,7 +15,7 @@ function Account(props) {
 
 
   const [progress, setProgress] = useState(0);
-  const [profileImageUrl, setProfileImageUrl] = useState("https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png");
+  const [profileImageUrl, setProfileImageUrl] = useState("");
   const [profileImageUploadStarted, setProfileImageUploadStarted] = useState(false);
 
 
@@ -22,12 +23,14 @@ function Account(props) {
     name: userDetails.name || "",
     designation: userDetails.designation || "",
     github: userDetails.github || "",
-    linkedin: userDetails.linkeding || ""
+    linkedin: userDetails.linkeding || "",
   })
   const [showSaveDetailsButton, setShowSaveDetailsButton] = useState(false);
   const [saveButtonDisabled, setSaveButtonDisabled] = useState(false);
   const [errorMessage, setErrorMessage] = useState(" ");
-  const [showProjectform, setShowProjectform] = useState(false)
+  const [showProjectform, setShowProjectform] = useState(false);
+  const [projectsLoaded, setProjectsLoaded] = useState(false);
+  const [projects, setProjects] = useState([]);
 
   const handleLogout = async () => {
     await signOut(auth);
@@ -45,8 +48,8 @@ function Account(props) {
       file,
       (progress) => { setProgress(progress) },
       (url) => {
-        setProfileImageUrl(url);
         updateProfileImageToDatabase(url);
+        setProfileImageUrl(url);
         setProfileImageUploadStarted(false);
         setProgress(0)
       },
@@ -82,6 +85,21 @@ function Account(props) {
   };
 
 
+  const fetchAllProjects = async () => {
+    const result = await getAllProjectsForUser(userDetails.uid);
+    if (!result) {
+      setProjectsLoaded(true);
+      return;
+    }
+
+    let tempProjects = [];
+    setProjectsLoaded(true);
+    result.forEach(doc => tempProjects.push(doc.data()));
+    setProjects(tempProjects);
+  }
+  useEffect(() => {
+    fetchAllProjects();
+  })
   return isAuthenticated ? (
     <div className={styles.container}>
       {
@@ -143,29 +161,21 @@ function Account(props) {
       </div>
 
       <div className={styles.projects}>
+        {projectsLoaded ?
+          projects.length > 0 ? (projects.map((item, index) =>
+          (<div className={styles.project} key={item.title + index}>
+            <p className={styles.title}>{item.title}</p>
 
-        <div className={styles.project}>
-          <p className={styles.title}>News Piper</p>
+            <div className={styles.link}>
+              <Edit2 />
+              <Trash />
+              <GitHub />
+              <Paperclip />
+            </div>
 
-          <div className={styles.link}>
-            <Edit2 />
-            <Trash />
-            <GitHub />
-            <Paperclip />
-          </div>
-
-        </div>
-        <div className={styles.project}>
-          <p className={styles.title}>Weather App</p>
-
-          <div className={styles.link}>
-            <Edit2 />
-            <Trash />
-            <GitHub />
-            <Paperclip />
-          </div>
-
-        </div>
+          </div>)
+          )) : (<p>No projects found</p>)
+          : (<Loader />)}
       </div>
     </div >
   ) : <Navigate to="/" />
