@@ -97,6 +97,7 @@ function ProjectForm(props) {
         setSubmitButtonDisabled(true);
         await addProjectInDatabase({ ...values, refUser: props.uid })
         setSubmitButtonDisabled(false);
+        if (props.onSubmission) props.onSubmission();
         if (props.onClose) props.onClose();
     }
 
@@ -132,7 +133,7 @@ function ProjectForm(props) {
                             <div className={styles.inputs}>
 
                                 {values.points.map((item, index) => (
-                                    <div className={styles.input}>
+                                    <div className={styles.input} key={index}>
                                         <InputControl placeholder='Project Description'
                                             key={index}
                                             value={item}

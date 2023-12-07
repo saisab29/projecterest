@@ -2,7 +2,7 @@ import { React, useRef, useState, useEffect } from 'react'
 import styles from './Account.module.css'
 import { Camera, Edit2, GitHub, Linkedin, LogOut, Paperclip, Trash } from 'react-feather'
 import InputControl from '../InputControl/InputControl'
-import { Navigate } from 'react-router-dom';
+import { Link, Navigate } from 'react-router-dom';
 import { signOut } from 'firebase/auth';
 import { auth, getAllProjectsForUser, updateUserToDatabase, uploadImage } from '../../firebase';
 import ProjectForm from './ProjectForm/ProjectForm';
@@ -104,7 +104,7 @@ function Account(props) {
     <div className={styles.container}>
       {
         showProjectform &&
-        <ProjectForm onClose={() => setShowProjectform(false)} uid={userDetails.uid} />
+        <ProjectForm onClose={() => setShowProjectform(false)} onSubmission={fetchAllProjects} uid={userDetails.uid} />
       }
 
 
@@ -169,8 +169,8 @@ function Account(props) {
             <div className={styles.link}>
               <Edit2 />
               <Trash />
-              <GitHub />
-              <Paperclip />
+              <Link to={`//${item.github}`} target="_blank"><GitHub /></Link>
+              <Link to={`//${item.github}`} target="_blank"><Paperclip /></Link>
             </div>
 
           </div>)
