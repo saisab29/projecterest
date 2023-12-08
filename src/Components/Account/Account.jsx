@@ -4,7 +4,7 @@ import { Camera, Edit2, GitHub, Linkedin, LogOut, Paperclip, Trash } from 'react
 import InputControl from '../InputControl/InputControl'
 import { Link, Navigate } from 'react-router-dom';
 import { signOut } from 'firebase/auth';
-import { auth, getAllProjectsForUser, updateUserToDatabase, uploadImage } from '../../firebase';
+import { auth, getAllProjectsForUser, updateUserToDatabase, uploadImage, updateProjectInDatabase } from '../../firebase';
 import ProjectForm from './ProjectForm/ProjectForm';
 import Loader from '../Loader/Loader';
 
@@ -31,6 +31,8 @@ function Account(props) {
   const [showProjectform, setShowProjectform] = useState(false);
   const [projectsLoaded, setProjectsLoaded] = useState(false);
   const [projects, setProjects] = useState([]);
+  const [isEditProjectModal, setIsEditProjectModal] = useState(false);
+  const [editProject, setEditProject] = useState({});
 
   const handleLogout = async () => {
     await signOut(auth);
@@ -94,18 +96,26 @@ function Account(props) {
 
     let tempProjects = [];
     setProjectsLoaded(true);
-    result.forEach(doc => tempProjects.push(doc.data()));
+    result.forEach(doc => tempProjects.push({ ...doc.data(), pid: doc.id }));
     setProjects(tempProjects);
   }
+
+  const handleEditClick = (project) => {
+    setIsEditProjectModal(true);
+    setEditProject(project);
+    setShowProjectform(true);
+  }
+
+
   useEffect(() => {
     fetchAllProjects();
   })
   return isAuthenticated ? (
     <div className={styles.container}>
       {
-        showProjectform &&
-        <ProjectForm onClose={() => setShowProjectform(false)} onSubmission={fetchAllProjects} uid={userDetails.uid} />
-      }
+        showProjectform && (
+          <ProjectForm onClose={() => setShowProjectform(false)} onSubmission={fetchAllProjects} uid={userDetails.uid} isEdit={isEditProjectModal} default={editProject} />
+        )}
 
 
       <div className={styles.header}>
@@ -167,7 +177,7 @@ function Account(props) {
             <p className={styles.title}>{item.title}</p>
 
             <div className={styles.link}>
-              <Edit2 />
+              <Edit2 onClick={() => handleEditClick()} />
               <Trash />
               <Link to={`//${item.github}`} target="_blank"><GitHub /></Link>
               <Link to={`//${item.github}`} target="_blank"><Paperclip /></Link>

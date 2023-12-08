@@ -3,21 +3,22 @@ import Modal from '../../Modal/Modal'
 import styles from './ProjectForm.module.css'
 import InputControl from '../../InputControl/InputControl'
 import { Delete } from 'react-feather';
-import { addProjectInDatabase, uploadImage } from '../../../firebase';
+import { addProjectInDatabase, updateProjectInDatabase, uploadImage } from '../../../firebase';
 
 
 function ProjectForm(props) {
     const fileInputRef = useRef();
+    const isEdit = props.isEdit ? true : false;
+    const defaults = props.default;
 
 
     const [values, setValues] = useState({
-        thumbnail: "",
-        title: "",
-        overview: "",
-        github: "",
-        link: "",
-        points: ["", ""],
-
+        thumbnail: defaults?.thumbnail || "",
+        title: defaults?.title || "",
+        overview: defaults?.overview || "",
+        github: defaults?.github || "",
+        link: defaults?.link || "",
+        points: defaults?.points || ["", ""],
     });
     const [errorMessage, setErrorMessage] = useState("");
     const [imageUploadStarted, setImageUploadStarted] = useState(false);
@@ -92,14 +93,19 @@ function ProjectForm(props) {
     }
 
     const handleSubmission = async () => {
+        console.log(defaults.thumbnail);
+
         if (!validateForm()) return;
 
         setSubmitButtonDisabled(true);
-        await addProjectInDatabase({ ...values, refUser: props.uid })
+        if (isEdit) await updateProjectInDatabase({ ...values, refUser: props.uid }, defaults.pid)
+        else await addProjectInDatabase({ ...values, refUser: props.uid })
         setSubmitButtonDisabled(false);
         if (props.onSubmission) props.onSubmission();
         if (props.onClose) props.onClose();
     }
+
+
 
 
 
@@ -118,11 +124,11 @@ function ProjectForm(props) {
                             }
                         </div>
                         <InputControl label='Github' placeholder='Github Repository' value={values.github} onChange={(event) => setValues((prev) => ({ ...prev, github: event.target.value, }))} />
-                        <InputControl label='Live Project' placeholder='Deployed Project LInk' onChange={(event) => setValues((prev) => ({ ...prev, link: event.target.value, }))} />
+                        <InputControl label='Live Project' placeholder='Deployed Project LInk' value={values.link} onChange={(event) => setValues((prev) => ({ ...prev, link: event.target.value, }))} />
                     </div>
                     <div className={styles.right}>
-                        <InputControl label='Project Name' placeholder='Name of the Project' onChange={(event) => setValues((prev) => ({ ...prev, title: event.target.value, }))} />
-                        <InputControl label='Project Overview' placeholder='Summarize your Project' onChange={(event) => setValues((prev) => ({ ...prev, overview: event.target.value, }))} />
+                        <InputControl label='Project Name' placeholder='Name of the Project' value={values.title} onChange={(event) => setValues((prev) => ({ ...prev, title: event.target.value, }))} />
+                        <InputControl label='Project Overview' placeholder='Summarize your Project' value={values.overview} onChange={(event) => setValues((prev) => ({ ...prev, overview: event.target.value, }))} />
 
                         <div className={styles.description}>
                             <div className={styles.top}>
