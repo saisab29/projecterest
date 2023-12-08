@@ -15,7 +15,7 @@ function Account(props) {
 
 
   const [progress, setProgress] = useState(0);
-  const [profileImageUrl, setProfileImageUrl] = useState("");
+  const [profileImageUrl, setProfileImageUrl] = useState(userDetails.profileImage || "");
   const [profileImageUploadStarted, setProfileImageUploadStarted] = useState(false);
 
 
@@ -104,7 +104,7 @@ function Account(props) {
     setIsEditProjectModal(true);
     setEditProject(project);
     setShowProjectform(true);
-  }
+  };
 
 
   useEffect(() => {
@@ -177,7 +177,7 @@ function Account(props) {
             <p className={styles.title}>{item.title}</p>
 
             <div className={styles.link}>
-              <Edit2 onClick={() => handleEditClick()} />
+              <Edit2 onClick={() => handleEditClick(item)} />
               <Trash />
               <Link to={`//${item.github}`} target="_blank"><GitHub /></Link>
               <Link to={`//${item.github}`} target="_blank"><Paperclip /></Link>
