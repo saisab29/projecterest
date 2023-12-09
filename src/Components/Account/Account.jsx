@@ -15,7 +15,7 @@ function Account(props) {
 
 
   const [progress, setProgress] = useState(0);
-  const [profileImageUrl, setProfileImageUrl] = useState(userDetails.profileImage || "");
+  const [profileImageUrl, setProfileImageUrl] = useState(userDetails.profileImage || "https://firebasestorage.googleapis.com/v0/b/project-ion-fce56.appspot.com/o/images%2F123455666%20(2).jpg?alt=media&token=762379c0-758d-4de4-8375-88aa2de916b2");
   const [profileImageUploadStarted, setProfileImageUploadStarted] = useState(false);
 
 
@@ -50,20 +50,20 @@ function Account(props) {
       file,
       (progress) => { setProgress(progress) },
       (url) => {
-        updateProfileImageToDatabase(url);
         setProfileImageUrl(url);
+        updateProfileImageToDatabase(url);
         setProfileImageUploadStarted(false);
         setProgress(0)
       },
       (err) => {
         console.error("Error->", err);
-        setProfileImageUploadStarted(false);
+        setProfileImageUploadStarted(true);
       }
     )
   }
 
-  const updateProfileImageToDatabase = async (url) => {
-    await updateUserToDatabase({ ...userprofileValues, profileImageUrl: url },
+  const updateProfileImageToDatabase = (url) => {
+    updateUserToDatabase({ ...userprofileValues, profileImage: url },
       userDetails.uid)
   }
   const handleInputChange = (event, property) => {
