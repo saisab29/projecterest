@@ -103,5 +103,10 @@ const getAllProjectsForUser = async (uid) => {
     return await getDocs(dbQuery);
 }
 
+const deleteProject = async (pid) => {
+    const docRef = doc(db, 'projects', pid);
+    await deleteDoc(docRef);
+}
 
-export { app as default, auth, db, updateUserToDatabase, getUserFromDatabase, uploadImage, addProjectInDatabase, updateProjectInDatabase, getAllProjects, getAllProjectsForUser };
+
+export { app as default, auth, db, updateUserToDatabase, getUserFromDatabase, uploadImage, addProjectInDatabase, updateProjectInDatabase, getAllProjects, getAllProjectsForUser, deleteProject };
