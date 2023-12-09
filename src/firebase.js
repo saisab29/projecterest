@@ -1,7 +1,7 @@
 // Import the functions you need from the SDKs you need
 import { initializeApp } from "firebase/app";
 import { getAuth } from 'firebase/auth';
-import { doc, setDoc, getDoc, getFirestore, addDoc, collection, query, where, getDocs } from 'firebase/firestore'
+import { doc, setDoc, getDoc, getFirestore, addDoc, collection, query, where, getDocs, deleteDoc } from 'firebase/firestore'
 import { getStorage, ref, uploadBytesResumable, getDownloadURL } from 'firebase/storage'
 
 const firebaseConfig = {
