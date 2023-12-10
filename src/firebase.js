@@ -106,6 +106,7 @@ const getAllProjectsForUser = async (uid) => {
 const deleteProject = async (pid) => {
     const docRef = doc(db, 'projects', pid);
     await deleteDoc(docRef);
+    //delete project of user from the firestore db
 }
 
 
