@@ -15,7 +15,7 @@ function Account(props) {
 
 
   const [progress, setProgress] = useState(0);
-  const [profileImageUrl, setProfileImageUrl] = useState(userDetails.profileImage || "https://firebasestorage.googleapis.com/v0/b/project-ion-fce56.appspot.com/o/images%2F123455666%20(2).jpg?alt=media&token=762379c0-758d-4de4-8375-88aa2de916b2");
+  const [profileImageUrl, setProfileImageUrl] = useState(userDetails.profileImage || "https://static.vecteezy.com/system/resources/previews/005/129/844/non_2x/profile-user-icon-isolated-on-white-background-eps10-free-vector.jpg");
   const [profileImageUploadStarted, setProfileImageUploadStarted] = useState(false);
 
 
