@@ -4,7 +4,7 @@ import { Camera, Edit2, GitHub, Linkedin, LogOut, Paperclip, Trash } from 'react
 import InputControl from '../InputControl/InputControl'
 import { Link, Navigate } from 'react-router-dom';
 import { signOut } from 'firebase/auth';
-import { auth, getAllProjectsForUser, updateUserToDatabase, uploadImage, updateProjectInDatabase } from '../../firebase';
+import { auth, getAllProjectsForUser, updateUserToDatabase, uploadImage, updateProjectInDatabase, deleteProject } from '../../firebase';
 import ProjectForm from './ProjectForm/ProjectForm';
 import Loader from '../Loader/Loader';
 
@@ -107,6 +107,12 @@ function Account(props) {
   };
 
 
+  const handleDeletion = async (pid) => {
+    await deleteProject(pid);
+    fetchAllProjects();
+  }
+
+
   useEffect(() => {
     fetchAllProjects();
   })
@@ -178,7 +184,7 @@ function Account(props) {
 
             <div className={styles.link}>
               <Edit2 onClick={() => handleEditClick(item)} />
-              <Trash />
+              <Trash onClickCapture={() => handleDeletion(item.pid)} />
               <Link to={`//${item.github}`} target="_blank"><GitHub /></Link>
               <Link to={`//${item.github}`} target="_blank"><Paperclip /></Link>
             </div>
