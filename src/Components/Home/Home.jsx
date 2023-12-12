@@ -75,9 +75,15 @@ const Home = (props) => {
                     </h2>
                 </div>
             </div>
-            <button ref={buttonRef} onClick={handleNextButtonClick} className={styles.button}>
-                {isAuthenticated ? "Your Projects" : "Get Started"}
-            </button>
+            <div className={styles.btncontainer}>
+
+                <button ref={buttonRef} onClick={handleNextButtonClick} className={styles.button}>
+                    {isAuthenticated ? "Your Projects" : "Get Started"}
+                </button>
+                <button ref={buttonRef} onClick={handleHomeButtonCslick} className={styles.button1}>
+                    Home
+                </button>
+            </div>
 
             <div className={styles.body}>
                 <p className={styles.title}>Projects</p>

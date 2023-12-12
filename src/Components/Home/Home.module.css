@@ -104,7 +104,27 @@
   border-radius: 25px;
   width: fit-content;
 }
-
+.button1{
+  margin: 0;
+  position: absolute;
+  top: 85%;
+  left: 20%;
+  -ms-transform: translate(-50%, -50%);
+  transform: translate(-50%, -50%);
+  border: none;
+  outline: none;
+  padding: 10px 16px;
+  background-color:rgb(98, 0, 234);
+  color: #fff;
+  border-radius: 25px;
+  width: fit-content;
+}
+.body{
+  color: white;
+}
+.btncontainer{
+  display: flex;
+}
 @media only screen and (max-width: 600px) {
 
 
