@@ -61,7 +61,7 @@ const Home = (props) => {
 
 
     return (
-        <div>
+        <div >
 
             <div>
                 <div ref={leftRef} id={styles.leftSide} className={styles.side}>
@@ -78,6 +78,19 @@ const Home = (props) => {
             <button ref={buttonRef} onClick={handleNextButtonClick} className={styles.button}>
                 {isAuthenticated ? "Your Projects" : "Get Started"}
             </button>
+
+            <div className={styles.body}>
+                <p className={styles.title}>Projects</p>
+                <div className={styles.projects}>
+                    <div className={styles.project}>
+                        <div className={styles.image}>
+
+                        </div>
+                        <p className={styles.title}>Twitter Clone</p>
+                    </div>
+
+                </div>
+            </div>
         </div>
     );
 };
