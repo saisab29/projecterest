@@ -80,7 +80,7 @@ const Home = (props) => {
                 <button ref={buttonRef} onClick={handleNextButtonClick} className={styles.button}>
                     {isAuthenticated ? "Your Projects" : "Get Started"}
                 </button>
-                <button ref={buttonRef} onClick={handleHomeButtonCslick} className={styles.button1}>
+                <button ref={buttonRef} className={styles.button1}>
                     Home
                 </button>
             </div>
